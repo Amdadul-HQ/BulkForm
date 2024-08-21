@@ -1,22 +1,21 @@
+import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { textAreaClass } from "../Function/BulkFormFunction";
 
-const BulkUploadInputField = ({
-  title,
+const BulkUploadDescriptionInputField = ({
   label,
-  type,
   defaultValue = "",
   handleChangeFn,
   index,
-  readOnly = false,
-  formData = [],
+  formData,
   setFormData,
-  value,
   condition,
+  value,
   regex = /^(?!\s)[\w\s:.\-,$%&()!@#^*;"'-+\\[\]=`/]+$/gm,
   maxLength = 70,
-  minLength = 1,
+  minLength = 50,
+  title,
 }) => {
   const [error, setError] = useState("");
   const validateInput = (text) => {
@@ -40,46 +39,42 @@ const BulkUploadInputField = ({
     validateInput(newValue);
   };
   return (
-    <>
+    <div>
       <TextField
-        required
-        size="small"
-        className={`w-full customTextField   ${condition} `}
-        id={`${title}`}
-        type={type}
-        inputProps={{ readOnly }}
+        id="outlined-multiline-static"
         label={label}
-        variant="outlined"
+        className={`${textAreaClass} customTextField ${condition} `}
         defaultValue={defaultValue}
+        multiline
+        rows={4}
         sx={{
           fieldset: { borderColor: "#cbd5e1" },
         }}
         value={value}
         onBlur={handleBlur}
         onChange={(e) => handleChangeFn(index, e, formData, setFormData, title)}
+        variant="outlined"
       />
       {error && <p className="text-red-500 text-xs italic">{error}</p>}
-    </>
+    </div>
   );
 };
 
-BulkUploadInputField.propTypes = {
-    register: PropTypes.func,
-    title: PropTypes.string,
-    label: PropTypes.string,
-    defaultValue: PropTypes.any,
-    regex: PropTypes.any,
-    type: PropTypes.string,
-    inputProps: PropTypes.object,
-    handleChangeFn: PropTypes.func,
-    index: PropTypes.number,
-    value: PropTypes.string,
-    readOnly: PropTypes.bool,
-    condition: PropTypes.any,
-    maxLength: PropTypes.number,
-    minLength: PropTypes.number,
-    formData: PropTypes.array,
-    setFormData: PropTypes.func,
-  };
+BulkUploadDescriptionInputField.propTypes = {
+  defaultValue: PropTypes.any,
+  label: PropTypes.string,
+  register: PropTypes.func,
+  title: PropTypes.string,
+  handleChangeFn: PropTypes.func,
+  index: PropTypes.number,
+  value: PropTypes.string,
+  readOnly: PropTypes.bool,
+  condition: PropTypes.string,
+  maxLength: PropTypes.number,
+  minLength: PropTypes.number,
+  regex: PropTypes.any,
+  formData: PropTypes.array,
+  setFormData: PropTypes.func,
+};
 
-export default BulkUploadInputField;
+export default BulkUploadDescriptionInputField;

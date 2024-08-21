@@ -1,20 +1,34 @@
 import { useState } from "react";
-import { handleBulkUploadVideoFile } from "../Function/BulkFormFunction";
+import { changeAutoComplete, deleteFiledHandler, handleBulkUploadVideoFile, handleChange, handleTagChange, videoFileType, videoTemplateApplicationSupportedConstant, videoTemplateSubCategoryConstant } from "../Function/BulkFormFunction";
 import { useRef } from "react";
 import { FaUpload } from "react-icons/fa";
 import { formRegex } from "../Regex/regex";
 import { MdDeleteForever } from "react-icons/md";
+import BulkUploadInputField from "../BulkInputField/BulkUploadInputField";
+import { Autocomplete, TextField } from "@mui/material";
+import BulkTagInputFiled from "../BulkInputField/BulkTagInputFiled";
+import VidoeUploadFileInBulk from "../BulkInputField/VidoeUploadFileInBulk";
+import BulkUploadDescriptionInputField from "../BulkInputField/BuklUploadDesriptionInputField";
 
 const BulkForm = () => {
     const [files,setFiles] = useState([]);
     const user = 'rimon@gmail.com';
     const [formData,setFormData]= useState([]);
     const fileInputRef = useRef(null);
+    const [fileType] = useState([]);
+    const [subCategory] = useState([]);
     const [submitted, setSubmitted] = useState(false);
+    const [applicationSupport, setApplicationSupported] = useState([]);
+    const [
+        applicationSupportedErrorMessage,
+        setApplicationSupportedErrorMessage,
+      ] = useState("");
     const handleBulkUpload =async () =>{
         fileInputRef.current.click();
       }
-    
+    const handleVideoTemplateUpload = () =>{
+        
+    }
   return (
     <div className=" min-h-screen max-w-[750px] mx-auto lg:max-w-7xl pb-10  p-4">
       <div className=" w-full mx-auto mt-10">
@@ -317,7 +331,7 @@ const BulkForm = () => {
             }, */
               }}
             />
-            <span className={`error-message ${errorSpanClass}`}>
+            <span className={`error-message`}>
               {applicationSupportedErrorMessage}
             </span>
           </div>
@@ -325,7 +339,7 @@ const BulkForm = () => {
               {/* Tags */}
               <div className="relative m-2 col-span-1 md:mb-6 flex-1">
                 <div className="border border-slate-300 h-10 w-[96%] mx-auto lg:mx-0 lg:w-full rounded text-slate-500  py-[1px] my-1 lg:my-0 flex flex-wrap gap-1 text-xs">
-                  <BulkIconTagInputFiled
+                  <BulkTagInputFiled
                     formData={formData}
                     setFormData={setFormData}
                     handleTagChange={handleTagChange}
@@ -337,17 +351,6 @@ const BulkForm = () => {
               </div>
 
               <div className="relative m-2 mb-6 flex-1">
-              {/* index={index}
-                  cssCondition={
-                    submitted && !data.file.length ? `bg-red-100` : ""
-                  }
-                  accept=".zip, .png"
-                  formData={formData}
-                  setFormData={setFormData}
-                  id={`${index}`}
-                  name="file" */}
-            {/* Main file input field ----------*/}
-            {/* !formData[index].file.length */}
             <VidoeUploadFileInBulk
             index= {index}
             cssCondition={
@@ -374,27 +377,12 @@ const BulkForm = () => {
                     id={`main${index}`}
                     name="main-file"
                   /> */}
-            <span className={`error-message ${errorSpanClass}`}>
+            <span className={`error-message`}>
               {/* {messageZip ? messageZip : errors?.choosenFile?.message} */}
             </span>
           </div>
 
           <div className="relative m-2 mb-6 flex-1">
-            {/* <VidoeUploadFileInBulk
-            checked={formData[index].file.length}
-            index={index}
-            formData={formData}
-            setFormData={setFormData}
-              cssCondition={
-                submitted &&!data.file.length
-                 ? `bg-red-100`
-                  : ""
-              }
-            title={"previewFile"}
-            label={"Preview File"}
-            name={`Preview File-${+index}`}
-            accept={".mp4"}
-            /> */}
             <VidoeUploadFileInBulk
             index= {index}
             cssCondition={
@@ -409,38 +397,12 @@ const BulkForm = () => {
             name={"previewFile"}
             label={"Preview File"}
             />
-           {/* <UploadFileInBulk
-                  index={index}
-                  cssCondition={
-                    submitted && !data.file.length ? `bg-red-100` : ""
-                  }
-                  accept=".mp4"
-                  formData={formData}
-                  setFormData={setFormData}
-                  id={`preview${index}`}
-                  name="previewFile"
-                /> */}
 
-            <span className={`error-message ${errorSpanClass}`}>
+            <span className={`error-message`}>
               {/* {messageVideo ? messageVideo : errors?.previewFile?.message} */}
               
             </span>
           </div>
-
-              {/*  File */}
-              {/* <div className="relative m-2 col-span-2 md:mb-5 flex-1 ">
-                <UploadFileInBulk
-                  index={index}
-                  cssCondition={
-                    submitted && !data.file.length ? `bg-red-100` : ""
-                  }
-                  accept=".zip, .png"
-                  formData={formData}
-                  setFormData={setFormData}
-                  id={`${index}`}
-                  name="file"
-                />
-              </div> */}
 
               {/*  Description */}
               <div className="col-span-3 flex">
