@@ -27,7 +27,24 @@ const BulkForm = () => {
         fileInputRef.current.click();
       }
     const handleVideoTemplateUpload = () =>{
-        
+        const videoTemplateFormData = new FormData();
+
+    formData.forEach((data) => {
+      videoTemplateFormData.append("title", data.title);
+      videoTemplateFormData.append("metaTitle", data.metaTitle);
+      videoTemplateFormData.append("category", data.category);
+      videoTemplateFormData.append("subCategories", data.subCategories);
+      videoTemplateFormData.append("metaDescription", data.metaDescription);
+      videoTemplateFormData.append("description", data.description);
+      videoTemplateFormData.append("tags", JSON.stringify(data.tags));
+      videoTemplateFormData.append("uploadedUserEmail",data.uploadedUserEmail);
+      videoTemplateFormData.append("type", data.type);
+      videoTemplateFormData.append("previewFile", data.previewFile);
+      videoTemplateFormData.append("main-file", data.file[0]);
+    });
+    
+
+    console.log(formData);
     }
   return (
     <div className=" min-h-screen max-w-[750px] mx-auto lg:max-w-7xl pb-10  p-4">
